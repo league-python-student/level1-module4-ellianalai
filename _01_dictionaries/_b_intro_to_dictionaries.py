@@ -5,15 +5,17 @@ import unittest
 
 # TODO: Return a dictionary with 4 key-value pairs
 def initialize_dictionary():
-
-    return dict()
+    dictionary = {'N': 'Hi', 'A': 'I', 'M': 'am', 'E': 'Ellie'}
+    return dictionary
 
 # TODO: Return a dictionary using the two input parameter lists.
 #  The first element in both lists should be a key-value pair, same
 #  for the second, etc. Assume both input parameters have the same length.
 def initialize_dictionary_from_lists(keys, values):
-
-    return dict()
+    dict = {}
+    for i in range(len(keys)):
+        dict.update({keys[i] : values [i]})
+    return dict
 
 # TODO: Return a dictionary with the specified key's value updated to the new
 #  value. If the key does not exist in the dictionary, do not change the
