@@ -21,14 +21,22 @@ def initialize_dictionary_from_lists(keys, values):
 #  value. If the key does not exist in the dictionary, do not change the
 #  dictionary.
 def dictionary_update(dictionary, key, new_value):
+    if key in dictionary:
+        dictionary.update({key: new_value})
 
-    return dict()
+
+
+    return dictionary
 
 # TODO: Return a dictionary with the input dictionary's keys and values
 #  reversed.
 def reverse_key_values(dictionary):
+    reverse = {}
+    for key in dictionary:
+        val = dictionary[key]
+        reverse.update({val:key})
 
-    return dict()
+    return dictionary
 
 # TODO Return a dictionary containing the matching key-value pairs from
 #  dict_1 and dict_2:
