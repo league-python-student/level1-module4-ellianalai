@@ -13,6 +13,7 @@ Log Search using a Id-Name Dictionary
 #      to enter a name. Add this information as a new entry to your
 #      dictionary.
 
+
 #  Button 2: Search by ID
 #      When this button is clicked, use an input dialog to ask the user
 #      to enter an ID number.
@@ -36,4 +37,38 @@ Log Search using a Id-Name Dictionary
 #
 import tkinter as tk
 from tkinter import simpledialog, messagebox
+class dictionary(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.dictionary = {}
+        self.button= tk.Button(self, text = 'Add', font = ('Courier New', 10, 'bold'))
+        self.button.place(relx = 0.2, rely=0.3, relwidth = 0.2, relheight = 0.1)
+        #An error when I click on bind button. Did I bind wrong?
+        self.button.bind('<ButtonPress>', self.add)
+    def add(self):
+       id = simpledialog.askstring(title ='ID?', prompt = 'Please enter an ID number')
+       name = simpledialog.askstring(title = 'Name?', prompt = 'Please enter your name')
+       key = id
+       value = name
+       self.dictionary.update({key:value})
+if __name__ == '__main__':
+    d = dictionary()
+    d.title('Log Search')
+    d.geometry('400x300')
+    d.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -36,13 +36,21 @@ def reverse_key_values(dictionary):
         val = dictionary[key]
         reverse.update({val:key})
 
-    return dictionary
+    return reverse
 
 # TODO Return a dictionary containing the matching key-value pairs from
 #  dict_1 and dict_2:
 def dictionary_overlap(dict_1, dict_2):
+    dict = {}
+    for key in dict_1:
+        for key_2 in dict_2:
+            if key == key_2:
+                if dict_1[key]==dict_2[key]:
+                    dict.update({key:dict_1[key]})
 
-    return dict()
+
+
+    return dict
 
 # ======================= DO NOT EDIT THE CODE BELOW =========================
 
