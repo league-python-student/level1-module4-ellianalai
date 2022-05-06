@@ -42,19 +42,50 @@ class dictionary(tk.Tk):
         super().__init__()
         self.dictionary = {}
         self.button= tk.Button(self, text = 'Add', font = ('Courier New', 10, 'bold'))
-        self.button.place(relx = 0.2, rely=0.3, relwidth = 0.2, relheight = 0.1)
-        #An error when I click on bind button. Did I bind wrong?
+        self.button.place(relx = 0.1, rely=0.3, relwidth = 0.2, relheight = 0.1)
         self.button.bind('<ButtonPress>', self.add)
-    def add(self):
+
+        self.button1 = tk.Button(self, text='Search', font=('Courier New', 10, 'bold'))
+        self.button1.place(relx=0.3, rely=0.3, relwidth=0.2, relheight=0.1)
+        self.button1.bind('<ButtonPress>', self.search)
+
+        self.button2 = tk.Button(self, text='View All', font=('Courier New', 10, 'bold'))
+        self.button2.place(relx=0.5, rely=0.3, relwidth=0.2, relheight=0.1)
+        self.button2.bind('<ButtonPress>', self.view)
+
+        self.button3 = tk.Button(self, text='Remove', font=('Courier New', 10, 'bold'))
+        self.button3.place(relx=0.7, rely=0.3, relwidth=0.2, relheight=0.1)
+        self.button3.bind('<ButtonPress>', self.remove)
+
+    def add(self, event):
        id = simpledialog.askstring(title ='ID?', prompt = 'Please enter an ID number')
        name = simpledialog.askstring(title = 'Name?', prompt = 'Please enter your name')
        key = id
        value = name
        self.dictionary.update({key:value})
+    def search (self,event):
+        s = simpledialog.askstring(title = 'Search', prompt = 'Enter an ID number')
+        if s in self.dictionary:
+            messagebox.showinfo(title= 'Search', message = 'Your Name is ' + self.dictionary[s])
+        else:
+            messagebox.showerror(title = 'Error', message = 'The ID number does not exist. Sorry (~_~;)')
+    def view(self, event):
+        m = ''
+
+        for key in self.dictionary:
+            m += 'ID: ' + str(key) + ' Name: ' + self.dictionary[key] + '\n'
+        messagebox.showinfo(title = 'View', message = m)
+    def remove(self,event):
+        r = simpledialog.askstring(title = 'Remove?', prompt = 'Enter an ID number')
+        if r in self.dictionary:
+            del self.dictionary[r]
+            messagebox.showinfo(title = 'Remove?', message = 'The ID and name have been removed')
+        else:
+            messagebox.showerror(title = 'Error', message = 'The ID number does not exist. Sorry (~_~;)')
 if __name__ == '__main__':
     d = dictionary()
     d.title('Log Search')
-    d.geometry('400x300')
+    d.geometry('400x200')
     d.mainloop()
 
 
