@@ -27,6 +27,7 @@ class MemoryMatch(tk.Tk):
 
     def __init__(self):
         super().__init__()
+        self.dictionary = {}
 
         # 4 copies of each value
         num_copies_each_value = 4
@@ -43,7 +44,8 @@ class MemoryMatch(tk.Tk):
             button.place(x=col_x, y=row_y, width=button_width, height=button_height)
 
             button.bind('<ButtonPress>', self.on_button_press)
-
+        self.dictionary.update({})
+        #self.dictionary[button] = self.value[i]
     def on_button_press(self, event):
         button_pressed = event.widget
         print('Button ' + str(button_pressed) + ' was pressed')
