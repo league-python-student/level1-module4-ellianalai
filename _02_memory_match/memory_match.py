@@ -33,28 +33,45 @@ class MemoryMatch(tk.Tk):
         num_copies_each_value = 4
         buttons_per_row = MemoryMatch.TOTAL_BUTTONS / 4
         button_width, button_height = self.setup_buttons(buttons_per_row)
+        self.value = list()
+        #UNDERSTAND THIS AND READ THROUGH!!
+        for i in range(MemoryMatch.TOTAL_BUTTONS):
+            value = int(i%(MemoryMatch.TOTAL_BUTTONS/num_copies_each_value))
+            self.value.append(value)
 
+        random.shuffle(self.value)
         for i in range(MemoryMatch.TOTAL_BUTTONS):
             row_num = int(i / buttons_per_row)
             col_num = int(i % buttons_per_row)
             row_y = row_num * button_height
             col_x = col_num * button_width
 
-            button = tk.Button(self, text='', fg='black', font=('arial', 24, 'bold'))
-            button.place(x=col_x, y=row_y, width=button_width, height=button_height)
+            self.button = tk.Button(self, text='', fg='black', font=('arial', 24, 'bold'))
+            self.button.place(x=col_x, y=row_y, width=button_width, height=button_height)
 
-            button.bind('<ButtonPress>', self.on_button_press)
-        self.dictionary.update({})
-        #self.dictionary[button] = self.value[i]
+            self.button.bind('<ButtonPress>', self.on_button_press)
+            self.dictionary[self.button] = self.value[i]
+
     def on_button_press(self, event):
+        event.widget.configure(text=self.dictionary[event.widget])
         button_pressed = event.widget
         print('Button ' + str(button_pressed) + ' was pressed')
 
         if button_pressed['state'] == tk.DISABLED:
             button_pressed.configure(state=tk.NORMAL, text='ON')
-        elif button_pressed['state'] == tk.NORMAL:
-            button_pressed.configure(state=tk.DISABLED, text='OFF')
 
+        #elif button_pressed['state'] == tk.NORMAL:
+            #button_pressed.configure(state=tk.DISABLED, text='OFF')
+
+#Have to disable button after 2 times clicked
+        if self.button_1 == None:
+            self.button_1=event.widget
+        else:
+            value_2 = self.dictionary[event.widget]
+            value_1 = self.dictionary[self.button_1]
+            if value_1 == value_2:
+                event.widget.configure(bg = 'light green', state = tk.DISABLED)
+                self.button_1.configure(bg='light green', state=tk.DISABLED)
     def setup_buttons(self, buttons_per_row):
         # Window size needs to be updated immediately here so the
         # window width/height variables can be used below
