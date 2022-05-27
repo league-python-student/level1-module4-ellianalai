@@ -48,12 +48,17 @@ class anagram(tk.Tk):
             "wonderful": ["underflow"],
             "zeal": ["laze"]}
         self.text = tk.Entry(self)
-        self.text.place(relx = 0.1, rely=0.3, relheight = 0.1, relwidth = 0.7)
+        self.text.place(relx = 0.45, rely=0.32, relheight = 0.1, relwidth = 0.5)
 
         self.b=tk.Button(self, text = 'Get New Word', font =('Courier New', 10, 'bold'))
         self.b.place(relx = 0.7, rely=0.1, relheight = 0.2, relwidth = 0.2)
         self.b.bind('<ButtonPress>', self.word)
-        self.label = tk.Label(self, text = 'Label is here', font = ('Courier New', 13, 'bold'))
+
+        self.b_1 = tk.Button(self, text='Insert Guess', font=('Courier New', 10, 'bold'))
+        self.b_1.place(relx=0.001, rely=0.3, relheight=0.2, relwidth=0.15)
+        self.b_1.bind('<ButtonPress>', self.guess)
+
+        self.label = tk.Label(self, text = '', font = ('Courier New', 13, 'bold'))
         self.label.place(relx = 0.1, rely=0.5, relheight = 0.15, relwidth = 0.8)
 
         self.label_1 = tk.Label(self, text='Guess the anagram for the word: ', font=('Courier New', 10, 'bold'))
@@ -61,11 +66,19 @@ class anagram(tk.Tk):
 
         self.label_2 = tk.Label(self, text='', font=('Courier New', 10, 'bold'))
         self.label_2.place(relx=0.47, rely=0.16, relheight=0.1, relwidth=0.2)
+
+        self.label_3 = tk.Label(self, text='Guesses Remaining: ', font=('Courier New', 10, 'bold'))
+        self.label_3.place(relx=0.15, rely=0.3, relheight=0.15, relwidth=0.25)
+
+
     #How do I make the word reset after I click Get New Word?
     #Right now it only does it once.
     def word(self, event):
         for key in self.word_anagrams:
             self.label_2.configure(text = key)
+    #When I click the button, numbers appear on the label, not words??
+    def guess(self,event):
+        self.label.configure(text = self.text)
 
 
 

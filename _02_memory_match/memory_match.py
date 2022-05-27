@@ -9,7 +9,7 @@ import tkinter as tk
 #   Your task is to:
 #   1. Create a dictionary with each button as a key and a number from 1 to 13
 #      as the corresponding value. There are 52 buttons, so there should be EXACTLY
-#      4 copies of each number from 1 ot 13.
+#      4 copies of each number from 1 ot 13.https://github.com/league-python-student/level1-module4-ellianalai.git
 #   2. Show the value of the button (a number from 1 to 13) when it's clicked.
 #   3. After the second button is clicked, check if the number from the first button
 #      matches the number of the second button.
@@ -28,7 +28,7 @@ class MemoryMatch(tk.Tk):
     def __init__(self):
         super().__init__()
         self.dictionary = {}
-
+        self.button_1=None
         # 4 copies of each value
         num_copies_each_value = 4
         buttons_per_row = MemoryMatch.TOTAL_BUTTONS / 4
@@ -54,24 +54,33 @@ class MemoryMatch(tk.Tk):
 
     def on_button_press(self, event):
         event.widget.configure(text=self.dictionary[event.widget])
-        button_pressed = event.widget
-        print('Button ' + str(button_pressed) + ' was pressed')
+        #button_pressed = event.widget
+        #print('Button ' + str(button_pressed) + ' was pressed')
 
-        if button_pressed['state'] == tk.DISABLED:
-            button_pressed.configure(state=tk.NORMAL, text='ON')
+        #if button_pressed['state'] == tk.DISABLED:
+            #button_pressed.configure(state=tk.NORMAL, text='ON')
 
         #elif button_pressed['state'] == tk.NORMAL:
             #button_pressed.configure(state=tk.DISABLED, text='OFF')
 
 #Have to disable button after 2 times clicked
+        self.update_idletasks()
+        time.sleep(0.35)
         if self.button_1 == None:
             self.button_1=event.widget
         else:
             value_2 = self.dictionary[event.widget]
             value_1 = self.dictionary[self.button_1]
+
             if value_1 == value_2:
                 event.widget.configure(bg = 'light green', state = tk.DISABLED)
                 self.button_1.configure(bg='light green', state=tk.DISABLED)
+            else:
+                event.widget.configure(text='')
+                event.widget.configure(state = tk.NORMAL)
+                self.button_1.configure(text='')
+                self.button_1.configure(state=tk.NORMAL)
+            self.button_1=None
     def setup_buttons(self, buttons_per_row):
         # Window size needs to be updated immediately here so the
         # window width/height variables can be used below
