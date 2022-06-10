@@ -84,31 +84,34 @@ class anagram(tk.Tk):
 
 
 
-    #How do I make the word reset after I click Get New Word?
-    #Right now it only does it once.
+
     def word(self, event):
         self.label.configure(text='')
-        list_of_keys = list(self.word_anagrams.keys())
-        self.random_word = random.choice(list_of_keys)
+        self.list_of_keys = list(self.word_anagrams.keys())
+        self.random_word = random.choice(self.list_of_keys)
         self.a = self.word_anagrams[self.random_word]
         self.label_2.configure(text = self.random_word)
         self.correct = 0
 
 
     def guess(self,event):
+
         t = self.text.get()
         if t in self.a:
             self.correct+= 1
             anagram_guessed = self.label['text'] + t + ','
             self.label.configure(text=anagram_guessed)
         #How am I supposed to say you guessed all anagrams in that word??
-        if self.correct == self.a:
-            messagebox.showinfo(title = '', message = 'You have guessed all the anagrams!')
+        if self.correct==len(self.a):
+            messagebox.showinfo(title = '', message = 'You have guessed all the anagrams for this word! Get a new word:)')
 
         self.number_guess -=1
         self.label_3.configure(text = 'Guesses Remaining: ' + str(self.number_guess))
     #Also, make sure to say if you do not guess all the anagrams in the word in 5 guesses, you lose
-
+        if self.number_guess==0:
+            messagebox.showinfo(title='', message='Sorry, you have no more guesses available please get a new word:(')
+            self.number_guess = 5
+            self.label_3.configure(text='Guesses Remaining: ' + str(self.number_guess))
 if __name__ == '__main__':
     a = anagram()
     a.title('hi')
